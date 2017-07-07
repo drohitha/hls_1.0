@@ -179,7 +179,7 @@ func share_patient(stub shim.ChaincodeStubInterface, args []string) (string, err
     queryArgs1[0] = []byte(f1)
      queryArgs1[1] = []byte(PatientID)
      queryArgs1[2] = []byte(DoctorID)
-  _, err := stub.InvokeChaincode(PatientChaincode, queryArgs1)
+  _, err := stub.InvokeChaincode(PatientChaincode, queryArgs1,"")
   if err != nil {
     errStr := fmt.Sprintf("Failed to query chaincode. Got error: %s", err.Error())
     fmt.Printf(errStr)
