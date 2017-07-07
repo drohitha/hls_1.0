@@ -71,7 +71,7 @@ fn, args := stub.GetFunctionAndParameters()
 var result string
     var err error
   if fn == "getPatient_byID" {                         //initialize the chaincode state, used as reset
-    result, err = getPatient_byID(stub, "init", args)
+    result, err = getPatient_byID(stub, args)
   } else if fn == "update_istatus" {
     result, err = update_istatus(stub, args)
   } else if fn == "get_byInsuranceProviderID" {
