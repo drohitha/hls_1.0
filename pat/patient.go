@@ -124,10 +124,10 @@ func getPatient_byID(stub shim.ChaincodeStubInterface, args []string) (string, e
   if err != nil {
        return "", fmt.Errorf("Failed to get asset: %s with error: %s", args[0], err)
   }
-  if value == nil {
+  if valAsbytes == nil {
             return "", fmt.Errorf("Asset not found: %s", args[0])
     }
-    return string(value), nil
+    return string(valAsbytes), nil
   //fmt.Print("valAsbytes : ")
   //fmt.Println(valAsbytes)                        //send it onward
 }
@@ -241,7 +241,7 @@ func create_patient(stub shim.ChaincodeStubInterface, args []string) (string, er
     fmt.Println(PatientDetails)
     err = stub.PutState(PatientID, []byte(PatientDetails))                  //store Patient with PatientID as key
     if err != nil {
-    return "", fmt.Errorf(err)
+    return "", err
   }
   //get the patient
   PatientIndexAsBytes, err := stub.GetState(PatientIndexStr)
@@ -261,7 +261,7 @@ func create_patient(stub shim.ChaincodeStubInterface, args []string) (string, er
   //fmt.Println(jsonAsBytes)
   err = stub.PutState(PatientIndexStr, jsonAsBytes)            //store name of Patient
   if err != nil {
-    return "", fmt.Errorf(err)
+    return "", err
   }
 
   fmt.Println("end create_Patient")
@@ -372,7 +372,7 @@ User := args[9]
     `}`
   err = stub.PutState(PatientID, []byte(PatientDetails))                  //store patient with id as key
   if err != nil {
-    return "", fmt.Errof(err)
+    return "", err
   }
   return string(PatientDetails), nil
 }
@@ -452,7 +452,7 @@ func share_patient(stub shim.ChaincodeStubInterface, args []string) (string, err
     `}`
   err = stub.PutState(PatientID, []byte(PatientDetails))                 //store Berth with id as key
   if err != nil {
-    return "", fmt.Errof(err)
+    return "", err
   }
   }
   /*PatientDetails :=  `{`+
@@ -469,7 +469,7 @@ func share_patient(stub shim.ChaincodeStubInterface, args []string) (string, err
    jsonAsBytes, _ := json.Marshal(DoctorIndex)
   err = stub.PutState(DoctorID, jsonAsBytes)            //store name of Patient
   if err != nil {
-    return "", fmt.Errorf(err)
+    return "", err
   }
   return string(DoctorID), nil
 }
@@ -642,7 +642,7 @@ func dupdate_patient(stub shim.ChaincodeStubInterface, args []string) (string, e
     `}`
   err = stub.PutState(PatientID, []byte(PatientDetails))                  //store patient with id as key
   if err != nil {
-    return "", fmt.Errorf(err)
+    return "", err
   }
   return string(PatientDetails), nil
 }
@@ -704,7 +704,7 @@ func cupdate_patient(stub shim.ChaincodeStubInterface, args []string) (string, e
     `}`
   err = stub.PutState(PatientID, []byte(PatientDetails))                  //store patient with id as key
   if err != nil {
-    return "", fmt.Errorf(err)
+    return "", err
   }
   return string(PatientDetails), nil
 }
