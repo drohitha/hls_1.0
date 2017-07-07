@@ -102,11 +102,11 @@ func getPatient_byID(stub shim.ChaincodeStubInterface, args []string) (string, e
      queryArgs1[1] = []byte(PatientID)
     
   pb := stub.InvokeChaincode(PatientChaincode, queryArgs1,"")
- /*if pb.Message == "" {
+ if pb.Status != 200{
     errStr := fmt.Sprintf("Failed to query chaincode. Got error: ")
     fmt.Printf(errStr)
     return "", fmt.Errorf(errStr)
-  }*/
+  }
   res := Patient{}
   json.Unmarshal([]byte(pb.Payload), &res)
   fmt.Println(res)
@@ -129,12 +129,12 @@ func get_byDoctorID(stub shim.ChaincodeStubInterface, args []string) (string, er
     queryArgs1[0] = []byte(f1)
      queryArgs1[1] = []byte(DoctorID)
   pb := stub.InvokeChaincode(PatientChaincode, queryArgs1,"")
-  if pb.Message == "" {
+  if pb.Status != 200 {
     errStr := fmt.Sprintf("Failed to query chaincode. Got error:")
     fmt.Printf(errStr)
     return "", fmt.Errorf(errStr)
   }
-  return string(pb.Message),nil
+  return string(pb.Payload),nil
 }
 
 func dupdate_patient(stub shim.ChaincodeStubInterface, args []string) (string, error) {
@@ -154,7 +154,7 @@ func dupdate_patient(stub shim.ChaincodeStubInterface, args []string) (string, e
      queryArgs1[3] = []byte(Remarks)
      queryArgs1[4] = []byte(User)
   pb := stub.InvokeChaincode(PatientChaincode, queryArgs1,"")
-  if pb.Message == "" {
+  if pb.Status != 200 {
     errStr := fmt.Sprintf("Failed to query chaincode. Got error: ")
      fmt.Printf(errStr)
     return "", fmt.Errorf(errStr)
