@@ -1,12 +1,12 @@
 package main
 
 import (
-"errors"
+
 "fmt"
 
 "encoding/json"
 "github.com/hyperledger/fabric/protos/peer"
-"github.com/hyperledger/fabric/core/util"
+
 "github.com/hyperledger/fabric/core/chaincode/shim"
 )
 
@@ -96,8 +96,11 @@ func getPatient_byID(stub shim.ChaincodeStubInterface, args []string) (string, e
   PatientChaincode := args[0]
   PatientID := args[1]
   f1 := "getPatient_byID"
-  queryArgs1 := util.ToChaincodeArgs(f1, PatientID)
-  patientAsBytes, err := stub.QueryChaincode(PatientChaincode, queryArgs1)
+    queryArgs1 := make([][]byte, 2)
+    queryArgs1[0] = []byte(f1)
+     queryArgs1[1] = []byte(PatientID)
+  //queryArgs1 := util.ToChaincodeArgs(f1, PatientID)
+  patientAsBytes, err := stub.InvokeChaincode(PatientChaincode, queryArgs1,"")
   if err != nil {
     errStr := fmt.Sprintf("Failed to query chaincode. Got error: %s", err.Error())
     fmt.Printf(errStr)
@@ -120,8 +123,10 @@ func get_byInsuranceProviderID(stub shim.ChaincodeStubInterface, args []string) 
   PatientChaincode := args[0]
   InsuranceProviderID := args[1]
   f1 := "get_byInsuranceProviderID"
-  queryArgs1 := util.ToChaincodeArgs(f1, InsuranceProviderID)
-  patientAsBytes, err := stub.QueryChaincode(PatientChaincode, queryArgs1)
+  queryArgs1 := make([][]byte, 2)
+   queryArgs1[0] = []byte(f1)
+     queryArgs1[1] = []byte(InsuranceProviderID)
+  patientAsBytes, err := stub.InvokeChaincode(PatientChaincode, queryArgs1,"")
   if err != nil {
     errStr := fmt.Sprintf("Failed to query chaincode. Got error: %s", err.Error())
     fmt.Printf(errStr)
@@ -137,8 +142,11 @@ func update_istatus(stub shim.ChaincodeStubInterface, args []string) (string, er
     PatientID := args[1]
     IStatus := args[2]
   f1 := "update_istatus"
-  queryArgs1 := util.ToChaincodeArgs(f1, PatientID,IStatus)
-  _, err := stub.InvokeChaincode(PatientChaincode, queryArgs1)
+   queryArgs1 := make([][]byte, 3)
+   queryArgs1[0] = []byte(f1)
+     queryArgs1[1] = []byte(PatientID)
+     queryArgs1[2] = []byte(IStatus)
+  _, err := stub.InvokeChaincode(PatientChaincode, queryArgs1,"")
   if err != nil {
     errStr := fmt.Sprintf("Failed to query chaincode. Got error: %s", err.Error())
     fmt.Printf(errStr)
