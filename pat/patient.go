@@ -1,7 +1,7 @@
 package main
 
 import (
-"errors"
+
 "fmt"
 "strconv"
 "encoding/json"
@@ -762,7 +762,7 @@ func update_istatus(stub shim.ChaincodeStubInterface, args []string) (string, er
     `}`
   err = stub.PutState(PatientID, []byte(PatientDetails))                 //store Berth with id as key
   if err != nil {
-    return "",fmt.Errorf(err)
+    return "",err
   }
   return string(PatientDetails), nil
 }
