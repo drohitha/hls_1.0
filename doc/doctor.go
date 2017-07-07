@@ -102,11 +102,11 @@ func getPatient_byID(stub shim.ChaincodeStubInterface, args []string) (string, e
      queryArgs1[1] = []byte(PatientID)
     
   pb := stub.InvokeChaincode(PatientChaincode, queryArgs1,"")
-  if pb.Message == "" {
+ /*if pb.Message == "" {
     errStr := fmt.Sprintf("Failed to query chaincode. Got error: ")
     fmt.Printf(errStr)
     return "", fmt.Errorf(errStr)
-  }
+  }*/
   res := Patient{}
   json.Unmarshal([]byte(pb.Message), &res)
   fmt.Println(res)
