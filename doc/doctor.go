@@ -101,21 +101,21 @@ func getPatient_byID(stub shim.ChaincodeStubInterface, args []string) (string, e
     queryArgs1[0] = []byte(f1)
      queryArgs1[1] = []byte(PatientID)
     
-  patientAsBytes, err := stub.InvokeChaincode(PatientChaincode, queryArgs1,"")
-  if err != nil {
-    errStr := fmt.Sprintf("Failed to query chaincode. Got error: %s", err.Error())
+  pb := stub.InvokeChaincode(PatientChaincode, queryArgs1,"")
+  if pb.Error != nil {
+    errStr := fmt.Sprintf("Failed to query chaincode. Got error: %s", pb.Error())
     fmt.Printf(errStr)
     return "", fmt.Errorf(errStr)
   }
   res := Patient{}
-  json.Unmarshal(patientAsBytes, &res)
+  json.Unmarshal(pb.Success , &res)
   fmt.Println(res)
   if res.PatientID == PatientID {
     fmt.Println("Patient found with PatientID : " + PatientID)
   } else {
     return "", fmt.Errorf("PatientID not found")
   }
-  return string(patientAsBytes),nil
+  return string(pb.Success),nil
 }
 
 func get_byDoctorID(stub shim.ChaincodeStubInterface, args []string) (string, error) {
@@ -128,13 +128,13 @@ func get_byDoctorID(stub shim.ChaincodeStubInterface, args []string) (string, er
   queryArgs1 := make([][]byte, 2)
     queryArgs1[0] = []byte(f1)
      queryArgs1[1] = []byte(DoctorID)
-  patientAsBytes, err := stub.InvokeChaincode(PatientChaincode, queryArgs1,"")
-  if err != nil {
-    errStr := fmt.Sprintf("Failed to query chaincode. Got error: %s", err.Error())
+  pb := stub.InvokeChaincode(PatientChaincode, queryArgs1,"")
+  if pb.Error != nil {
+    errStr := fmt.Sprintf("Failed to query chaincode. Got error: %s", pb.Error())
     fmt.Printf(errStr)
     return "", fmt.Errorf(errStr)
   }
-  return string(patientAsBytes),nil
+  return string(pb.Success),nil
 }
 
 func dupdate_patient(stub shim.ChaincodeStubInterface, args []string) (string, error) {
@@ -153,9 +153,9 @@ func dupdate_patient(stub shim.ChaincodeStubInterface, args []string) (string, e
      queryArgs1[2] = []byte(Medications)
      queryArgs1[3] = []byte(Remarks)
      queryArgs1[4] = []byte(User)
-  _, err := stub.InvokeChaincode(PatientChaincode, queryArgs1,"")
-  if err != nil {
-    errStr := fmt.Sprintf("Failed to query chaincode. Got error: %s", err.Error())
+  pb := stub.InvokeChaincode(PatientChaincode, queryArgs1,"")
+  if pb.Error != nil {
+    errStr := fmt.Sprintf("Failed to query chaincode. Got error: %s", pb.Error())
     fmt.Printf(errStr)
     return "", fmt.Errorf(errStr)
   }
