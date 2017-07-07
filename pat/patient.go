@@ -112,7 +112,7 @@ func (t *ManagePatient) Init(stub shim.ChaincodeStubInterface) peer.Response {
 }
 
 func getPatient_byID(stub shim.ChaincodeStubInterface, args []string) (string, error) {
-  var PatientID, jsonResp string
+  var PatientID string
   var err error
   fmt.Println("start getPatient_byID")
   if len(args) != 1 {
