@@ -73,7 +73,7 @@ var result string
   if fn == "getPatient_byID" {                         //initialize the chaincode state, used as reset
     result, err = getPatient_byID(stub, "init", args)
   } else if fn == "update_istatus" {
-    result, err = .update_istatus(stub, args)
+    result, err = update_istatus(stub, args)
   } else if fn == "get_byInsuranceProviderID" {
     result, err = get_byInsuranceProviderID(stub,args)
   }/* else if function == "update_istatus" {
