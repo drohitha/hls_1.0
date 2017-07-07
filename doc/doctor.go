@@ -108,7 +108,7 @@ func getPatient_byID(stub shim.ChaincodeStubInterface, args []string) (string, e
     return "", fmt.Errorf(errStr)
   }*/
   res := Patient{}
-  json.Unmarshal([]byte(pb.Message), &res)
+  json.Unmarshal([]byte(pb.Payload), &res)
   fmt.Println(res)
   if res.PatientID == PatientID {
     fmt.Println("Patient found with PatientID : " + PatientID)
