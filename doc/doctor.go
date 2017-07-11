@@ -91,9 +91,10 @@ func (t *ManageDoctor) Invoke(stub shim.ChaincodeStubInterface) peer.Response {
 }
 
 func getPatient_byID(stub shim.ChaincodeStubInterface, args []string) (string, error) {
-  if len(args) != 1 {
-    return "", fmt.Errorf("Incorrect number of arguments. Expecting 3 args")
-  }
+  //if len(args) != 1 {
+   // return "", fmt.Errorf("Incorrect number of arguments. Expecting 3 args")
+  //}
+  fmt.Println(len(args))
   //PatientChaincode := args[0]
   PatientID := args[0]
   /*f1 := "getPatient_byID"
