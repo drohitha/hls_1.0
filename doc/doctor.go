@@ -96,7 +96,7 @@ func getPatient_byID(stub shim.ChaincodeStubInterface, args []string) (string, e
   }
   PatientChaincode := args[0]
   PatientID := args[1]
-  f1 := "getPatient_byID"
+  /*f1 := "getPatient_byID"
   queryArgs1 := make([][]byte, 2)
     queryArgs1[0] = []byte(f1)
      queryArgs1[1] = []byte(PatientID)
@@ -115,7 +115,16 @@ func getPatient_byID(stub shim.ChaincodeStubInterface, args []string) (string, e
   } else {
     return "", fmt.Errorf("PatientID not found")
   }
-  return string(pb.Message),nil
+  return string(pb.Message),nil*/
+  valAsbytes, err := stub.GetState(PatientID)                  //get the PatientID from chaincode state
+  if err != nil {
+       return "", fmt.Errorf("Failed to get asset: %s with error: %s", args[0], err)
+  }
+  if valAsbytes == nil {
+            return "", fmt.Errorf("Asset not found: %s", args[1])
+    }
+    return string(valAsbytes), nil
+  
 }
 
 func get_byDoctorID(stub shim.ChaincodeStubInterface, args []string) (string, error) {
