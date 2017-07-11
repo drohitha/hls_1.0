@@ -91,11 +91,11 @@ func (t *ManageDoctor) Invoke(stub shim.ChaincodeStubInterface) peer.Response {
 }
 
 func getPatient_byID(stub shim.ChaincodeStubInterface, args []string) (string, error) {
-  if len(args) != 2 {
+  if len(args) != 1 {
     return "", fmt.Errorf("Incorrect number of arguments. Expecting 3 args")
   }
-  PatientChaincode := args[0]
-  PatientID := args[1]
+  //PatientChaincode := args[0]
+  PatientID := args[0]
   /*f1 := "getPatient_byID"
   queryArgs1 := make([][]byte, 2)
     queryArgs1[0] = []byte(f1)
@@ -121,7 +121,7 @@ func getPatient_byID(stub shim.ChaincodeStubInterface, args []string) (string, e
        return "", fmt.Errorf("Failed to get asset: %s with error: %s", args[0], err)
   }
   if valAsbytes == nil {
-            return "", fmt.Errorf("Asset not found: %s", args[1])
+            return "", fmt.Errorf("Asset not found: %s", args[0])
     }
     return string(valAsbytes), nil
   
