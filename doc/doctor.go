@@ -91,13 +91,13 @@ func (t *ManageDoctor) Invoke(stub shim.ChaincodeStubInterface) peer.Response {
 }
 
 func getPatient_byID(stub shim.ChaincodeStubInterface, args []string) (string, error) {
-  //if len(args) != 1 {
-   // return "", fmt.Errorf("Incorrect number of arguments. Expecting 3 args")
-  //}
-  fmt.Println(len(args))
-  //PatientChaincode := args[0]
-  PatientID := args[0]
-  /*f1 := "getPatient_byID"
+  if len(args) != 2 {
+   return "", fmt.Errorf("Incorrect number of arguments. Expecting 3 args")
+  }
+  //fmt.Println(len(args))
+  PatientChaincode := args[0]
+  PatientID := args[1]
+  f1 := "getPatient_byID"
   queryArgs1 := make([][]byte, 2)
     queryArgs1[0] = []byte(f1)
      queryArgs1[1] = []byte(PatientID)
@@ -116,16 +116,8 @@ func getPatient_byID(stub shim.ChaincodeStubInterface, args []string) (string, e
   } else {
     return "", fmt.Errorf("PatientID not found")
   }
-  return string(pb.Message),nil*/
-  valAsbytes, err := stub.GetState(PatientID)                  //get the PatientID from chaincode state
-  if err != nil {
-       return "", fmt.Errorf("Failed to get asset: %s with error: %s", args[0], err)
-  }
-  if valAsbytes == nil {
-            return "", fmt.Errorf("Asset not found: %s", args[0])
-    }
-    return string(valAsbytes), nil
-  
+  return string(pb.Message),nil
+   
 }
 
 func get_byDoctorID(stub shim.ChaincodeStubInterface, args []string) (string, error) {
